@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Most of the code in the Qalingo project is copyrighted Hoteia and licensed
+    under the Apache License Version 2.0 (release version ${license.version})
+            http://www.apache.org/licenses/LICENSE-2.0
+
+                      Copyright (c) Hoteia, 2012-2013
+    http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
+
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		">
+
+	<!-- Configures core context -->
+	<import resource="classpath*:qalingo-core-context.xml" />
+
+	<!-- SCHEDULING PART -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="stockLoaderCronTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="stockLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="stockSyncJobDetail" />
+		<property name="cronExpression" value="${batch.stock.cron}" />
+	</bean>
+	
+	<bean id="stockSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="fr.hoteia.qalingo.core.batch.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="stockSyncJob" />
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />
+			</map>
+		</property>
+	</bean>
+	
+	<!-- STOCK SYNC -->
+	<job id="stockSyncJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="stockSyncStep">
+			<tasklet>
+				<chunk reader="stockSyncItemReader"
+					   processor="stockSyncItemProcessor"
+					   writer="stockSyncItemWriter"
+	                   commit-interval="${batch.stock.commit.interval}" />
+			</tasklet>
+			<listeners>
+				<listener ref="stepListener"/>
+			</listeners>
+		</step>
+	</job>
+	<bean id="stockSyncItemReader" class="fr.hoteia.qalingo.app.erpsync.job.stock.StockItemReader">
+	</bean>
+	
+	<bean id="stockSyncItemProcessor" class="fr.hoteia.qalingo.app.erpsync.job.stock.StockItemProcessor">
+	</bean>
+	
+	<bean id="stockSyncItemWriter" class="fr.hoteia.qalingo.app.erpsync.job.stock.StockItemWriter">
+	</bean>
+	
+</beans>

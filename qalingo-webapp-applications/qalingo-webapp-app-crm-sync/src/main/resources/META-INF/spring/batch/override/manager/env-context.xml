@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Most of the code in the Qalingo project is copyrighted Hoteia and licensed
+    under the Apache License Version 2.0 (release version ${license.version})
+            http://www.apache.org/licenses/LICENSE-2.0
+
+                      Copyright (c) Hoteia, 2012-2013
+    http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
+
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--  Use this to set additional properties on beans at run time -->
+	<bean id="placeholderProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/org/springframework/batch/admin/bootstrap/batch.properties</value>
+				<value>classpath:batch-default.properties</value>
+				<value>classpath:batch-mysql.properties</value>
+			</list>
+		</property>
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="ignoreUnresolvablePlaceholders" value="false" />
+		<property name="order" value="1" />
+	</bean>
+	
+	<!-- Configures core context -->
+	<import resource="classpath*:qalingo-batch-common-context.xml" />
+	
+	<!--
+	<bean id="alertMailSender" class="fr.diot.web.adp.bulk.common.AlertMailSender">
+		<property name="mailSender" ref="mailSender"/>
+		<property name="templateMessage" ref="alertMailTemplateMessage"/>
+		<property name="urlPrefix" value="${tomcat.context.url}"/>		
+		<property name="emailTo" value="${batch.email.alert.to}"/>		
+	</bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="" /> ${batch.email.host} 
+		<property name="port" value="25" />  ${batch.email.port} 
+	</bean>
+
+	<bean id="alertMailTemplateMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="" />  ${batch.email.alert.from}
+		<property name="subject" value="" /> ${batch.email.alert.subject}
+	</bean>
+	-->
+
+</beans>
