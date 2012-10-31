@@ -37,12 +37,14 @@
 		<!-- Spring-batch -->
 		<spring.batch.version>2.1.9.RELEASE</spring.batch.version>
 		<spring.batch.admin.version>1.2.1.RELEASE</spring.batch.admin.version>
+		<!-- Datas -->
+		<hibernate.version>4.1.7.Final</hibernate.version>
+		<!-- CXF -->
+		<cxf.version>2.7.0</cxf.version>
 		<!-- SOLR -->
 		<solr.version>4.0.0-BETA</solr.version>
 		<!-- DROOLS -->
 		<drools.version>5.4.0.Final</drools.version>
-		<!-- Datas -->
-		<hibernate.version>4.1.7.Final</hibernate.version>
 		<!-- LOGS -->
 		<logback.version>1.0.6</logback.version>	
 		<slf4j.version>1.6.6</slf4j.version>
@@ -110,6 +112,12 @@
 				<groupId>fr.hoteia.qalingo</groupId>
 				<artifactId>qalingo-i18n</artifactId>
 				<version>${project.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>poi</artifactId>
+						<groupId>org.apache.poi</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			
 			<!-- Commons libs -->
@@ -459,7 +467,31 @@
 				<artifactId>log4j-over-slf4j</artifactId>
 				<version>${slf4j.version}</version>
 			</dependency>
-
+		
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>1.7</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.tuckey</groupId>
+				<artifactId>urlrewrite</artifactId>
+				<version>3.2.0</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>net.sourceforge.wurfl</groupId>
+				<artifactId>wurfl</artifactId>
+				<version>1.4.2</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.5</version>
+			</dependency>
+            
 			<!-- Test dependencies -->
 			<dependency>
 				<groupId>junit</groupId>
@@ -504,31 +536,13 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
-			
 			<dependency>
-				<groupId>org.apache.velocity</groupId>
-				<artifactId>velocity</artifactId>
-				<version>1.7</version>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-testutils</artifactId>
+				<version>${cxf.version}</version>
+				<scope>test</scope>
 			</dependency>
 			
-			<dependency>
-				<groupId>org.tuckey</groupId>
-				<artifactId>urlrewrite</artifactId>
-				<version>3.2.0</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>net.sourceforge.wurfl</groupId>
-				<artifactId>wurfl</artifactId>
-				<version>1.4.2</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>javax.mail</groupId>
-				<artifactId>mail</artifactId>
-				<version>1.4.5</version>
-			</dependency>
-            
 		</dependencies>
 	</dependencyManagement>
 
@@ -551,7 +565,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-testutils</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
