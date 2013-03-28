@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.InitializingBean;
 
-import fr.hoteia.qalingo.core.common.domain.Customer;
+import fr.hoteia.qalingo.core.domain.Customer;
 
 
 /**

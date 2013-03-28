@@ -25,7 +25,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.dao.DataAccessException;
 
 import fr.hoteia.qalingo.core.batch.CommonProcessIndicatorItemWrapper;
-import fr.hoteia.qalingo.core.common.domain.CmsContent;
+import fr.hoteia.qalingo.core.domain.CmsContent;
 
 /**
  * Thread-safe database {@link ItemReader} implementing the process indicator
