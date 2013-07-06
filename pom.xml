@@ -66,7 +66,7 @@
 									
 				<notification.velocity.email.templates.path>/home/servers/qalingo/jenkins/home/jobs/Build-deploy-FO-Resources-Qalingo/workspace/git/qalingo/parent-hoteia-qalingo/qalingo-theme-assets/qalingo-assets-frontoffice/qalingo-assets-mcommerce-pages/target/mcommerce-pages/velocity/themes</notification.velocity.email.templates.path>
 
-				<wurfl.xml.path>file:///home/servers/qalingo/jenkins/home/jobs/Build-deploy-FO-Resources-Qalingo/workspace/parent-hoteia-qalingo/qalingo-misc/qalingo-wurfl/src/main/resources/wurfl.zip</wurfl.xml.path>
+				<wurfl.xml.path>file:///home/servers/qalingo/misc/wurfl/wurfl.zip</wurfl.xml.path>
 			</properties>
 		</profile>
 		<profile>
@@ -86,7 +86,7 @@
 				
 				<notification.velocity.email.templates.path>C:/dev/hoteia/poc/ecommerce/workspace/git/qalingo/parent-hoteia-qalingo/qalingo-theme-assets/qalingo-assets-frontoffice/qalingo-assets-mcommerce-pages/target/fo-mcommerce-pages/velocity/themes</notification.velocity.email.templates.path>
 				
-				<wurfl.xml.path>file:///C:/dev/hoteia/qalingo/workspace/git/qalingo-b2c-engine/qalingo-misc/qalingo-wurfl/src/main/resources/wurfl.zip</wurfl.xml.path>
+				<wurfl.xml.path>file:///C:/dev/hoteia/qalingo/workspace/misc/wurfl/wurfl.zip</wurfl.xml.path>
 			</properties>
 		</profile>
 	</profiles>
