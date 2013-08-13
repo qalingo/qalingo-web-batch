@@ -13,8 +13,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.sql.Blob;
 
-import javax.mail.internet.MimeMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -25,6 +23,7 @@ import org.springframework.util.Assert;
 import fr.hoteia.qalingo.core.batch.CommonProcessIndicatorItemWrapper;
 import fr.hoteia.qalingo.core.dao.EmailDao;
 import fr.hoteia.qalingo.core.domain.Email;
+import fr.hoteia.qalingo.core.util.impl.MimeMessagePreparatorImpl;
 
 
 /**
@@ -51,7 +50,7 @@ public abstract class AbstractEmailItemProcessor<T> implements ItemProcessor<Com
 	    ObjectInputStream oip = new ObjectInputStream(is);
 	    Object object = oip.readObject();
 	    
-	    MimeMessage mimeMessage = (MimeMessage) object;
+	    MimeMessagePreparatorImpl mimeMessagePreparator = (MimeMessagePreparatorImpl) object;
 	    
 	    oip.close();
 	    is.close();
@@ -59,7 +58,7 @@ public abstract class AbstractEmailItemProcessor<T> implements ItemProcessor<Com
 	    try {
 	    	// SANITY CHECK
 	    	if(email.getStatus().equals(Email.EMAIl_STATUS_PENDING)){
-				mailSender.send(mimeMessage);
+				mailSender.send(mimeMessagePreparator);
 				email.setStatus(Email.EMAIl_STATUS_SENDED);
 	    	} else {
 	    		LOG.warn("Batch try to send email was already sended!");
