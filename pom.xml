@@ -63,8 +63,6 @@
 				<project.www.theme>default</project.www.theme>
 				<spring.security.context.relative>true</spring.security.context.relative>
 				<env.name>demo</env.name>
-									
-				<notification.velocity.email.templates.path>/home/servers/qalingo/jenkins/home/jobs/Build-deploy-FO-Resources-Qalingo/workspace/git/qalingo/parent-hoteia-qalingo/qalingo-theme-assets/qalingo-assets-frontoffice/qalingo-assets-mcommerce-pages/target/mcommerce-pages/velocity/themes</notification.velocity.email.templates.path>
 
 				<wurfl.xml.path>file:///home/servers/qalingo/misc/wurfl/wurfl.zip</wurfl.xml.path>
 			</properties>
@@ -83,9 +81,7 @@
 				<batch.jdbc.username>qalingo</batch.jdbc.username>
 				<batch.jdbc.password>password</batch.jdbc.password>
 				<batch.jdbc.url>jdbc:mysql://localhost:3306/qalingo?AutoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8</batch.jdbc.url>
-				
-				<notification.velocity.email.templates.path>C:/dev/hoteia/poc/ecommerce/workspace/git/qalingo/parent-hoteia-qalingo/qalingo-theme-assets/qalingo-assets-frontoffice/qalingo-assets-mcommerce-pages/target/fo-mcommerce-pages/velocity/themes</notification.velocity.email.templates.path>
-				
+								
 				<wurfl.xml.path>file:///C:/dev/hoteia/qalingo/workspace/misc/wurfl/wurfl.zip</wurfl.xml.path>
 			</properties>
 		</profile>

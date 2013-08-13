@@ -15,25 +15,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 
+import fr.hoteia.qalingo.core.dao.EmailDao;
 import fr.hoteia.qalingo.core.domain.Email;
-
 
 /**
  * 
  */
-public class EmailItemWriter implements ItemWriter<Email>, InitializingBean {
+public abstract class AbstractEmailItemWriter implements ItemWriter<Email>, InitializingBean {
 	
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
-	
+
+	protected EmailDao emailDao;
+
 	public final void afterPropertiesSet() throws Exception {
+		Assert.notNull(emailDao, "You must provide an EmailDao.");
 	}
 	
 	public void write(List<? extends Email> processIndicatorItemWrapperList) throws Exception {
-		for (Email targetEmail : processIndicatorItemWrapperList) {
-			
-	        
+		for (Email email : processIndicatorItemWrapperList) {
+			int processedCount = email.getProcessedCount();
+			email.setProcessedCount(processedCount++);
+			emailDao.saveOrUpdateEmail(email);
 		}
 	}
+	
+	public void setEmailDao(EmailDao emailDao) {
+	    this.emailDao = emailDao;
+    }
 
 }

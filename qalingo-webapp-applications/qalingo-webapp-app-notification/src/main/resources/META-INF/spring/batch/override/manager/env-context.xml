@@ -31,7 +31,6 @@
 	<!-- Configures core context -->
 	<import resource="classpath*:qalingo-batch-common-context.xml" />
 	
-	<!--
 	<bean id="alertMailSender" class="fr.diot.web.adp.bulk.common.AlertMailSender">
 		<property name="mailSender" ref="mailSender"/>
 		<property name="templateMessage" ref="alertMailTemplateMessage"/>
@@ -40,14 +39,13 @@
 	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="" /> ${batch.email.host} 
-		<property name="port" value="25" />  ${batch.email.port} 
+		<property name="host" value=" ${batch.email.host}" />
+		<property name="port" value="${batch.email.port}" />
 	</bean>
 
 	<bean id="alertMailTemplateMessage" class="org.springframework.mail.SimpleMailMessage">
-		<property name="from" value="" />  ${batch.email.alert.from}
-		<property name="subject" value="" /> ${batch.email.alert.subject}
+		<property name="from" value="${batch.email.alert.from}" />
+		<property name="subject" value="${batch.email.alert.subject}" />
 	</bean>
-	-->
 
 </beans>

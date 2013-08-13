@@ -63,13 +63,18 @@
 			</listeners>
 		</step>
 	</job>
-	<bean id="emailSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.EmailItemReader">
+	
+	<bean id="emailSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.contact.EmailItemReader">
+		<property name="emailDao" ref="emailDao" />
 	</bean>
 	
-	<bean id="emailSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.EmailItemProcessor">
+	<bean id="emailSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.contact.EmailItemProcessor">
+		<property name="mailSender" ref="mailSender" />
+		<property name="emailDao" ref="emailDao" />
 	</bean>
 	
-	<bean id="emailSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.EmailItemWriter">
+	<bean id="emailSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.contact.EmailItemWriter">
+		<property name="emailDao" ref="emailDao" />
 	</bean>
 	
 </beans>
