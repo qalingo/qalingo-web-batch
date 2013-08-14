@@ -18,13 +18,13 @@
 		<connection>scm:git:git@github.com:qalingo/qalingo-b2c-web-batch.git</connection>
 		<developerConnection>scm:git:git@github.com:qalingo/qalingo-b2c-web-batch.git</developerConnection>
 		<url>scm:git:git@github.com:qalingo/qalingo-b2c-web-batch.git</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 	
 	<properties>
 		<root.basedir>${project.basedir}</root.basedir> 
 		<qalingo.engine.version>0.7.1-SNAPSHOT</qalingo.engine.version> 
-		<packaging.excludes>WEB-INF/classes/*.properties</packaging.excludes>
+		<packaging.excludes>WEB-INF/classes/*.properties, %regex[WEB-INF/classes/*.properties]</packaging.excludes>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<solr.server.url>http://localhost:14080/solr</solr.server.url>
 		<env.name>developpement</env.name>
@@ -59,6 +59,20 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- Qalingo libs -->
+			<dependency>
+				<groupId>fr.hoteia.qalingo</groupId>
+				<artifactId>qalingo-common-shared-configuration</artifactId>
+				<version>${qalingo.engine.version}</version>
+				<classifier>resources</classifier>
+				<type>zip</type>
+			</dependency>
+			<dependency>
+				<groupId>fr.hoteia.qalingo</groupId>
+				<artifactId>qalingo-application-shared-configuration</artifactId>
+				<version>${qalingo.engine.version}</version>
+				<classifier>resources</classifier>
+				<type>zip</type>
+			</dependency>
 			<dependency>
 				<groupId>fr.hoteia.qalingo</groupId>
 				<artifactId>qalingo-api-core-common</artifactId>
@@ -581,6 +595,25 @@
 					</execution>
 				</executions>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+					<execution>
+						<id>unpack-shared-resources</id>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
+							<includeArtifactIds>qalingo-common-shared-configuration,qalingo-application-shared-configuration</includeArtifactIds>
+							<includeGroupIds>${project.groupId}</includeGroupIds>
+							<excludeTransitive>true</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
+            </plugin>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<configuration>
