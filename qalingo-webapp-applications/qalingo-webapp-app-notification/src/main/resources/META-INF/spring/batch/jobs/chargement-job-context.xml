@@ -29,35 +29,41 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="emailLoaderCronTrigger" />
+				<ref bean="emailNewAccountLoaderCronTrigger" />
+				<ref bean="emailForgottenPasswordLoaderCronTrigger" />
+				<ref bean="emailContactLoaderCronTrigger" />
+				<ref bean="emailNewletterRegistrationLoaderCronTrigger" />
+				<ref bean="emailOrderConfirmationLoaderCronTrigger" />
+				<ref bean="emailOrderShippedLoaderCronTrigger" />
+				<ref bean="emailAbandonedShoppingCartLoaderCronTrigger" />
 			</list>
 		</property>
 	</bean>
 
-	<bean id="emailLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-		<property name="jobDetail" ref="emailSyncJobDetail" />
+	<!-- EMAIL NEWACCOUNT NOTIFICATION SYNC -->
+	<bean id="emailNewAccountLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="emailNewAccountSyncJobDetail" />
 		<property name="cronExpression" value="${batch.email.notification.cron}" />
 	</bean>
 	
-	<bean id="emailSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+	<bean id="emailNewAccountSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
 		<property name="jobClass" value="fr.hoteia.qalingo.core.batch.JobLauncherDetails" />
 		<property name="group" value="quartz-batch" />
 		<property name="jobDataAsMap">
 			<map>
-				<entry key="jobName" value="emailSyncJob" />
+				<entry key="jobName" value="emailNewAccountSyncJob" />
 				<entry key="jobLocator" value-ref="jobRegistry" />
 				<entry key="jobLauncher" value-ref="jobLauncher" />
 			</map>
 		</property>
 	</bean>
 	
-	<!-- EMAIL NOTIFICATION SYNC -->
-	<job id="emailSyncJob" xmlns="http://www.springframework.org/schema/batch">
-		<step id="emailSyncStep">
+	<job id="emailNewAccountSyncJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="emailNewAccountSyncStep">
 			<tasklet>
-				<chunk reader="emailSyncItemReader"
-					   processor="emailSyncItemProcessor"
-					   writer="emailSyncItemWriter"
+				<chunk reader="emailNewAccountSyncItemReader"
+					   processor="emailNewAccountSyncItemProcessor"
+					   writer="emailNewAccountSyncItemWriter"
 	                   commit-interval="${batch.email.notification.commit.interval}" />
 			</tasklet>
 			<listeners>
@@ -66,17 +72,287 @@
 		</step>
 	</job>
 	
-	<bean id="emailSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.contact.ContactEmailItemReader">
+	<bean id="emailNewAccountSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.newaccount.NewAccountEmailItemReader">
 		<property name="emailDao" ref="emailDao" />
 	</bean>
 	
-	<bean id="emailSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.contact.ContactEmailItemProcessor">
+	<bean id="emailNewAccountSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.newaccount.NewAccountEmailItemProcessor">
 		<property name="mailSender" ref="mailSender" />
 		<property name="emailDao" ref="emailDao" />
 	</bean>
 	
-	<bean id="emailSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.contact.ContactEmailItemWriter">
+	<bean id="emailNewAccountSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.newaccount.NewAccountEmailItemWriter">
 		<property name="emailDao" ref="emailDao" />
 	</bean>
 	
+	<!-- EMAIL FORGOTTENPASSWORD NOTIFICATION SYNC -->
+	<bean id="emailForgottenPasswordLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="emailForgottenPasswordSyncJobDetail" />
+		<property name="cronExpression" value="${batch.email.notification.cron}" />
+	</bean>
+	
+	<bean id="emailForgottenPasswordSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="fr.hoteia.qalingo.core.batch.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="emailForgottenPasswordSyncJob" />
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />
+			</map>
+		</property>
+	</bean>
+	
+	<job id="emailForgottenPasswordSyncJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="emailForgottenPasswordSyncStep">
+			<tasklet>
+				<chunk reader="emailForgottenPasswordSyncItemReader"
+					   processor="emailForgottenPasswordSyncItemProcessor"
+					   writer="emailForgottenPasswordSyncItemWriter"
+	                   commit-interval="${batch.email.notification.commit.interval}" />
+			</tasklet>
+			<listeners>
+				<listener ref="stepListener"/>
+			</listeners>
+		</step>
+	</job>
+	
+	<bean id="emailForgottenPasswordSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.forgottenpassword.ForgottenPasswordEmailItemReader">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailForgottenPasswordSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.forgottenpassword.ForgottenPasswordEmailItemProcessor">
+		<property name="mailSender" ref="mailSender" />
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailForgottenPasswordSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.forgottenpassword.ForgottenPasswordEmailItemWriter">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<!-- EMAIL CONTACT NOTIFICATION SYNC -->
+	<bean id="emailContactLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="emailContactSyncJobDetail" />
+		<property name="cronExpression" value="${batch.email.notification.cron}" />
+	</bean>
+	
+	<bean id="emailContactSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="fr.hoteia.qalingo.core.batch.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="emailContactSyncJob" />
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />
+			</map>
+		</property>
+	</bean>
+	
+	<job id="emailContactSyncJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="emailContactSyncStep">
+			<tasklet>
+				<chunk reader="emailContactSyncItemReader"
+					   processor="emailContactSyncItemProcessor"
+					   writer="emailContactSyncItemWriter"
+	                   commit-interval="${batch.email.notification.commit.interval}" />
+			</tasklet>
+			<listeners>
+				<listener ref="stepListener"/>
+			</listeners>
+		</step>
+	</job>
+	
+	<bean id="emailContactSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.contact.ContactEmailItemReader">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailContactSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.contact.ContactEmailItemProcessor">
+		<property name="mailSender" ref="mailSender" />
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailContactSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.contact.ContactEmailItemWriter">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<!-- EMAIL NEWLETTERREGISTRATION NOTIFICATION SYNC -->
+	<bean id="emailNewletterRegistrationLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="emailNewletterRegistrationSyncJobDetail" />
+		<property name="cronExpression" value="${batch.email.notification.cron}" />
+	</bean>
+	
+	<bean id="emailNewletterRegistrationSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="fr.hoteia.qalingo.core.batch.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="emailNewletterRegistrationSyncJob" />
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />
+			</map>
+		</property>
+	</bean>
+	
+	<job id="emailNewletterRegistrationSyncJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="emailNewletterRegistrationSyncStep">
+			<tasklet>
+				<chunk reader="emailNewletterRegistrationSyncItemReader"
+					   processor="emailNewletterRegistrationSyncItemProcessor"
+					   writer="emailNewletterRegistrationSyncItemWriter"
+	                   commit-interval="${batch.email.notification.commit.interval}" />
+			</tasklet>
+			<listeners>
+				<listener ref="stepListener"/>
+			</listeners>
+		</step>
+	</job>
+	
+	<bean id="emailNewletterRegistrationSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.newletterregistration.NewletterRegistrationEmailItemReader">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailNewletterRegistrationSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.newletterregistration.NewletterRegistrationEmailItemProcessor">
+		<property name="mailSender" ref="mailSender" />
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailNewletterRegistrationSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.newletterregistration.NewletterRegistrationEmailItemWriter">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<!-- EMAIL ORDERCONFIRMATION NOTIFICATION SYNC -->
+	<bean id="emailOrderConfirmationLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="emailOrderConfirmationSyncJobDetail" />
+		<property name="cronExpression" value="${batch.email.notification.cron}" />
+	</bean>
+	
+	<bean id="emailOrderConfirmationSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="fr.hoteia.qalingo.core.batch.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="emailOrderConfirmationSyncJob" />
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />
+			</map>
+		</property>
+	</bean>
+	
+	<job id="emailOrderConfirmationSyncJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="emailOrderConfirmationSyncStep">
+			<tasklet>
+				<chunk reader="emailOrderConfirmationSyncItemReader"
+					   processor="emailOrderConfirmationSyncItemProcessor"
+					   writer="emailOrderConfirmationSyncItemWriter"
+	                   commit-interval="${batch.email.notification.commit.interval}" />
+			</tasklet>
+			<listeners>
+				<listener ref="stepListener"/>
+			</listeners>
+		</step>
+	</job>
+	
+	<bean id="emailOrderConfirmationSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.orderconfirmation.OrderConfirmationEmailItemReader">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailOrderConfirmationSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.orderconfirmation.OrderConfirmationEmailItemProcessor">
+		<property name="mailSender" ref="mailSender" />
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailOrderConfirmationSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.orderconfirmation.OrderConfirmationEmailItemWriter">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<!-- EMAIL ORDERSHIPPED NOTIFICATION SYNC -->
+	<bean id="emailOrderShippedLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="emailOrderShippedSyncJobDetail" />
+		<property name="cronExpression" value="${batch.email.notification.cron}" />
+	</bean>
+	
+	<bean id="emailOrderShippedSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="fr.hoteia.qalingo.core.batch.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="emailOrderShippedSyncJob" />
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />
+			</map>
+		</property>
+	</bean>
+	
+	<job id="emailOrderShippedSyncJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="emailOrderShippedSyncStep">
+			<tasklet>
+				<chunk reader="emailOrderShippedSyncItemReader"
+					   processor="emailOrderShippedSyncItemProcessor"
+					   writer="emailOrderShippedSyncItemWriter"
+	                   commit-interval="${batch.email.notification.commit.interval}" />
+			</tasklet>
+			<listeners>
+				<listener ref="stepListener"/>
+			</listeners>
+		</step>
+	</job>
+	
+	<bean id="emailOrderShippedSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.ordershipped.OrderShippedEmailItemReader">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailOrderShippedSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.ordershipped.OrderShippedEmailItemProcessor">
+		<property name="mailSender" ref="mailSender" />
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailOrderShippedSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.ordershipped.OrderShippedEmailItemWriter">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<!-- EMAIL ABANDONEDSHOPPINGCART NOTIFICATION SYNC -->
+	<bean id="emailAbandonedShoppingCartLoaderCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="emailAbandonedShoppingCartSyncJobDetail" />
+		<property name="cronExpression" value="${batch.email.notification.cron}" />
+	</bean>
+	
+	<bean id="emailAbandonedShoppingCartSyncJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="fr.hoteia.qalingo.core.batch.JobLauncherDetails" />
+		<property name="group" value="quartz-batch" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="jobName" value="emailAbandonedShoppingCartSyncJob" />
+				<entry key="jobLocator" value-ref="jobRegistry" />
+				<entry key="jobLauncher" value-ref="jobLauncher" />
+			</map>
+		</property>
+	</bean>
+	
+	<job id="emailAbandonedShoppingCartSyncJob" xmlns="http://www.springframework.org/schema/batch">
+		<step id="emailAbandonedShoppingCartSyncStep">
+			<tasklet>
+				<chunk reader="emailAbandonedShoppingCartSyncItemReader"
+					   processor="emailAbandonedShoppingCartSyncItemProcessor"
+					   writer="emailAbandonedShoppingCartSyncItemWriter"
+	                   commit-interval="${batch.email.notification.commit.interval}" />
+			</tasklet>
+			<listeners>
+				<listener ref="stepListener"/>
+			</listeners>
+		</step>
+	</job>
+	
+	<bean id="emailAbandonedShoppingCartSyncItemReader" class="fr.hoteia.qalingo.app.notification.job.email.abandonedshoppingcart.AbandonedShoppingCartEmailItemReader">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailAbandonedShoppingCartSyncItemProcessor" class="fr.hoteia.qalingo.app.notification.job.email.abandonedshoppingcart.AbandonedShoppingCartEmailItemProcessor">
+		<property name="mailSender" ref="mailSender" />
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+	
+	<bean id="emailAbandonedShoppingCartSyncItemWriter" class="fr.hoteia.qalingo.app.notification.job.email.abandonedshoppingcart.AbandonedShoppingCartEmailItemWriter">
+		<property name="emailDao" ref="emailDao" />
+	</bean>
+
 </beans>
