@@ -73,9 +73,12 @@ public abstract class AbstractEmailItemProcessor<T> implements ItemProcessor<Com
 	    return email;
     }
 	
-	
 	public void setMailSender(JavaMailSender mailSender) {
 	    this.mailSender = mailSender;
+    }
+
+	public void setEmailDao(EmailDao emailDao) {
+	    this.emailDao = emailDao;
     }
 	
 }

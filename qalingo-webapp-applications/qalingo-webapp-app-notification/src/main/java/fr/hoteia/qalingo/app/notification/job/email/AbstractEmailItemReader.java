@@ -110,4 +110,5 @@ public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonPro
 	public void setEmailDao(EmailDao emailDao) {
 	    this.emailDao = emailDao;
     }
+
 }
