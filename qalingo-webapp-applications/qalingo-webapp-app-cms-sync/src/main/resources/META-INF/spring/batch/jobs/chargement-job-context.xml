@@ -23,6 +23,8 @@
 	<!-- Configures core context -->
 	<import resource="classpath*:qalingo-batch-common-context.xml" />
 
+	<import resource="classpath:messages-config.xml" />
+	
 	<!-- SCHEDULING PART -->
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
