@@ -7,7 +7,7 @@
  * http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
  *
  */
-package fr.hoteia.qalingo.app.notification.job.email.forgottenpassword;
+package fr.hoteia.qalingo.app.notification.job.email.resetpasswordconfirmation;
 
 import java.util.List;
 

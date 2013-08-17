@@ -14,6 +14,6 @@ import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemProcessor;
 /**
  * 
  */
-public class ForgottenPasswordEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
+public class ResetPasswordConfirmationEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
 
 }
