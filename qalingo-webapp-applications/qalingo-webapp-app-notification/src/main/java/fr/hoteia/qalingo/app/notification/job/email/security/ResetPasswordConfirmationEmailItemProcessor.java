@@ -7,13 +7,13 @@
  * http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
  *
  */
-package fr.hoteia.qalingo.app.notification.job.email.newsletterregister;
+package fr.hoteia.qalingo.app.notification.job.email.security;
 
 import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemProcessor;
 
 /**
  * 
  */
-public class NewsletterRegisterEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
+public class ResetPasswordConfirmationEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
 
 }

@@ -7,13 +7,13 @@
  * http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
  *
  */
-package fr.hoteia.qalingo.app.notification.job.email.resetpasswordconfirmation;
+package fr.hoteia.qalingo.app.notification.job.email.retailercontact;
 
 import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemProcessor;
 
 /**
  * 
  */
-public class ForgottenPasswordEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
+public class RetailerContactEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
 
 }

@@ -7,7 +7,7 @@
  * http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
  *
  */
-package fr.hoteia.qalingo.app.notification.job.email.newsletterregister;
+package fr.hoteia.qalingo.app.notification.job.email.newsletter;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import fr.hoteia.qalingo.core.domain.Email;
  * pattern.
  * 
  */
-public class NewsletterRegisterEmailItemReader<T> extends AbstractEmailItemReader<T> {
+public class NewsletterRegistrationConfirmationEmailItemReader<T> extends AbstractEmailItemReader<T> {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 

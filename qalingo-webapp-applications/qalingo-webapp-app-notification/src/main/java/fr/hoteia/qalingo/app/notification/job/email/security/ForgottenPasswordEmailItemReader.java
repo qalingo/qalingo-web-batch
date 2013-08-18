@@ -7,7 +7,7 @@
  * http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
  *
  */
-package fr.hoteia.qalingo.app.notification.job.email.forgottenpassword;
+package fr.hoteia.qalingo.app.notification.job.email.security;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import fr.hoteia.qalingo.core.domain.Email;
  * pattern.
  * 
  */
-public class ResetPasswordConfirmationEmailItemReader<T> extends AbstractEmailItemReader<T> {
+public class ForgottenPasswordEmailItemReader<T> extends AbstractEmailItemReader<T> {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
@@ -32,7 +32,7 @@ public class ResetPasswordConfirmationEmailItemReader<T> extends AbstractEmailIt
 		synchronized (lock) {
 			List<Long> keys = null;
 	    	try {
-    			keys = emailDao.findIdsForEmailSync(Email.EMAIl_TYPE_RESET_PASSWORD_CONFIRMATION);
+    			keys = emailDao.findIdsForEmailSync(Email.EMAIl_TYPE_FORGOTTEN_PASSWORD);
 			} catch (Exception e) {
 				LOG.error("Error during the IDs loading", e);
 			} 
