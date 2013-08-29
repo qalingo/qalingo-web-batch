@@ -17,10 +17,14 @@
 	<bean id="placeholderProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:mail.properties</value>
 				<value>classpath:/org/springframework/batch/admin/bootstrap/batch.properties</value>
-				<value>classpath:batch-default.properties</value>
-				<value>classpath:batch-mysql.properties</value>
+				<value>classpath:common-qalingo-batch-default.properties</value>
+				<value>classpath:common-qalingo-batch-mysql.properties</value>
+				<value>classpath:common-qalingo-config.properties</value>
+				<value>classpath:common-qalingo-jdbc.properties</value>
+				<value>classpath:common-qalingo-mail.properties</value>
+				<value>classpath:common-qalingo-velocity.properties</value>
+				<value>classpath:specific-qalingo-batch.properties</value>
 			</list>
 		</property>
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
