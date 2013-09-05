@@ -14,6 +14,6 @@ import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemProcessor;
 /**
  * 
  */
-public class NewsletterRegistrationConfirmationEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
+public class NewsletterSubscriptionEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
 
 }

@@ -36,7 +36,7 @@ public abstract class AbstractEmailItemWriter implements ItemWriter<Email>, Init
 	public void write(List<? extends Email> processIndicatorItemWrapperList) throws Exception {
 		for (Email email : processIndicatorItemWrapperList) {
 			int processedCount = email.getProcessedCount();
-			email.setProcessedCount(processedCount++);
+			email.setProcessedCount(++processedCount);
 			emailDao.saveOrUpdateEmail(email);
 		}
 	}

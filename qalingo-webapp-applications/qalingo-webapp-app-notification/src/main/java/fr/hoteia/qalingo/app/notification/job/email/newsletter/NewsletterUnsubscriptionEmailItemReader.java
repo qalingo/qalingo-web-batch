@@ -23,7 +23,7 @@ import fr.hoteia.qalingo.core.domain.Email;
  * pattern.
  * 
  */
-public class NewsletterRegistrationConfirmationEmailItemReader<T> extends AbstractEmailItemReader<T> {
+public class NewsletterUnsubscriptionEmailItemReader<T> extends AbstractEmailItemReader<T> {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
@@ -32,7 +32,7 @@ public class NewsletterRegistrationConfirmationEmailItemReader<T> extends Abstra
 		synchronized (lock) {
 			List<Long> keys = null;
 	    	try {
-    			keys = emailDao.findIdsForEmailSync(Email.EMAIl_TYPE_NEWSLETTER_REGISTRATION_CONFIRMATION);
+    			keys = emailDao.findIdsForEmailSync(Email.EMAIl_TYPE_NEWSLETTER_UNSUBSCRIPTION);
 			} catch (Exception e) {
 				LOG.error("Error during the IDs loading", e);
 			} 
