@@ -14,7 +14,7 @@ import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemWriter;
 /**
  * 
  */
-public class NewsletterUnubscriptionEmailItemWriter extends AbstractEmailItemWriter {
+public class NewsletterUnsubscriptionEmailItemWriter extends AbstractEmailItemWriter {
 	
 	
 }
