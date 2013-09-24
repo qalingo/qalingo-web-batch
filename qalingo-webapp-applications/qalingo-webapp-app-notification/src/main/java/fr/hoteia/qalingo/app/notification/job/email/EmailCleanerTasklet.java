@@ -38,7 +38,10 @@ public class EmailCleanerTasklet implements Tasklet, InitializingBean {
 
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		GregorianCalendar calendar = new GregorianCalendar(); 
-		int day = calendar.get(GregorianCalendar.DAY_OF_YEAR); 
+		int day = calendar.get(GregorianCalendar.DAY_OF_YEAR);
+		
+		// TODO : Denis : 20130924 : add number of day configuration in database
+		
 		calendar.set(GregorianCalendar.DAY_OF_YEAR, day - 7);
 		int row = emailDao.deleteSendedEmail(new Timestamp(calendar.getTimeInMillis()));
 		LOG.debug(row + " emails deleted");

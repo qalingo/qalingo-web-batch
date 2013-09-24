@@ -52,7 +52,7 @@
 	<!-- EMAIL CLEANER -->
 	<bean id="emailCleanerCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="emailCleanerJobDetail" />
-		<property name="cronExpression" value="${batch.email.notification.cron}" />
+		<property name="cronExpression" value="${batch.email.cleaner.cron}" />
 	</bean>
 	
 	<bean id="emailCleanerJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
