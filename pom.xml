@@ -46,10 +46,6 @@
 		<solr.version>4.0.0-BETA</solr.version>
 		<!-- DROOLS -->
 		<drools.version>5.4.0.Final</drools.version>
-		<!-- LOGS -->
-		<logback.version>1.0.6</logback.version>	
-		<slf4j.version>1.6.6</slf4j.version>
-		<jackson-version>1.8.0</jackson-version>
 	</properties>
 
 	<modules>
@@ -77,6 +73,12 @@
 				<groupId>fr.hoteia.qalingo</groupId>
 				<artifactId>qalingo-api-core-common</artifactId>
 				<version>${qalingo.engine.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>log4j</artifactId>
+						<groupId>log4j</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>fr.hoteia.qalingo</groupId>
@@ -352,27 +354,6 @@
 				<artifactId>jsr94</artifactId>
 				<version>1.1</version>
 			</dependency>
-
-			<!-- Form Validation -->
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>4.2.0.Final</version>
-			</dependency>
-			
-			<!-- JSON -->
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-jaxrs</artifactId>
-				<version>${jackson-version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-mapper-asl</artifactId>
-				<version>${jackson-version}</version>
-			</dependency>
 	
 			<!-- Cache dependencies -->
 			<dependency>
@@ -399,34 +380,8 @@
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.9</version>
 			</dependency>
-		
-			<!-- Logs dependencies -->
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logback.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>log4j-over-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-		
+
+			<!-- UI Velocity framework -->
 			<dependency>
 				<groupId>org.apache.velocity</groupId>
 				<artifactId>velocity</artifactId>
@@ -665,6 +620,13 @@
 					<groupId>org.mortbay.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
 					<version>7.2.2.v20101205</version>
+					<dependencies>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>5.1.9</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
@@ -673,6 +635,13 @@
 					<configuration>
 						<update>true</update>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>5.1.9</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>com.mycila.maven-license-plugin</groupId>
