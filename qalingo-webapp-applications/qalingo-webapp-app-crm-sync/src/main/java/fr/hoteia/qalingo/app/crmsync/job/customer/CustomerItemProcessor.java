@@ -23,7 +23,7 @@ import fr.hoteia.qalingo.core.domain.Customer;
  */
 public class CustomerItemProcessor<T> implements ItemProcessor<CommonProcessIndicatorItemWrapper<Customer, Customer>, Customer>, InitializingBean {
 
-	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public void afterPropertiesSet() throws Exception {
 	}

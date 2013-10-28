@@ -39,7 +39,7 @@ import fr.hoteia.qalingo.core.util.impl.MimeMessagePreparatorImpl;
  */
 public abstract class AbstractEmailItemProcessor<T> implements ItemProcessor<CommonProcessIndicatorItemWrapper<Long, Email>, Email>, InitializingBean {
 
-	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private JavaMailSender mailSender;
 	
@@ -93,21 +93,21 @@ public abstract class AbstractEmailItemProcessor<T> implements ItemProcessor<Com
                                 out.close();
                             }
                         } catch (IOException e) {
-                            LOG.debug("Cannot close the file", e);
+                            logger.debug("Cannot close the file", e);
                         }
 	                } else {
-	                    LOG.debug("File already exists : " + filePathToSave);
+	                    logger.debug("File already exists : " + filePathToSave);
 	                }
 	            }
 	    		
 				mailSender.send(mimeMessagePreparator);
 				email.setStatus(Email.EMAIl_STATUS_SENDED);
 	    	} else {
-	    		LOG.warn("Batch try to send email was already sended!");
+	    		logger.warn("Batch try to send email was already sended!");
 	    	}
             
         } catch (Exception e) {
-        	LOG.error("Fail to send email! Exception is save in database, id:" + email.getId());
+        	logger.error("Fail to send email! Exception is save in database, id:" + email.getId());
     		email.setStatus(Email.EMAIl_STATUS_ERROR);
     		emailDao.handleEmailException(email, e);
         }

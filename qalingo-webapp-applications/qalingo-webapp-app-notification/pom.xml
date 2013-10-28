@@ -65,24 +65,28 @@
 	<dependencies>
 		<!-- Qalingo libs-->
 		<dependency>
-			<groupId>fr.hoteia.qalingo</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>qalingo-common-shared-configuration</artifactId>
 			<classifier>resources</classifier>
 			<type>zip</type>
 		</dependency>
 		<dependency>
-			<groupId>fr.hoteia.qalingo</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>qalingo-application-shared-configuration</artifactId>
 			<classifier>resources</classifier>
 			<type>zip</type>
 		</dependency>
 		<dependency>
-			<groupId>fr.hoteia.qalingo</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>qalingo-api-core-common</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>fr.hoteia.qalingo</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>qalingo-api-core-batch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>qalingo-api-core-jms</artifactId>
 		</dependency>
 
 		<!-- Commons libs-->
@@ -184,7 +188,7 @@
 			<artifactId>spring-security-web</artifactId>
 		</dependency>
 		
-		<!-- Spring Batch -->
+		<!-- Spring Batch libs -->
 		<dependency>
 			<groupId>org.springframework.batch</groupId>
 			<artifactId>spring-batch-core</artifactId>

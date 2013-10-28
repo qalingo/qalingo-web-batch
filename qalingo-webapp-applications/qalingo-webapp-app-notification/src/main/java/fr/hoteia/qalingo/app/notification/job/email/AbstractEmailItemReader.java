@@ -36,7 +36,7 @@ import fr.hoteia.qalingo.core.domain.Email;
  */
 public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonProcessIndicatorItemWrapper<Long, Email>>, StepExecutionListener, InitializingBean, DisposableBean {
 
-	protected final Logger LOG = LoggerFactory.getLogger(getClass());
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected final Object lock = new Object();
 
@@ -67,7 +67,7 @@ public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonPro
 				key = keysIterator.next();
 			}
 		}
-		LOG.debug("Retrieved key from list: " + key);
+		logger.debug("Retrieved key from list: " + key);
 
 		if (key == null) {
 			return null;
@@ -77,7 +77,7 @@ public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonPro
 			result = emailDao.getEmailById(key);
 			
 		} catch (Exception e) {
-			LOG.error("Fail to load", e);
+			logger.error("Fail to load", e);
 			throw new ReaderNotOpenException("Fail to load");
 		}
 		
@@ -99,7 +99,7 @@ public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonPro
 					keys = new ArrayList<Long>();
 				}
 				keysIterator = keys.iterator();
-				LOG.info("Keys obtained for staging.");
+				logger.info("Keys obtained for staging.");
 				initialized = true;
 			}
 		}

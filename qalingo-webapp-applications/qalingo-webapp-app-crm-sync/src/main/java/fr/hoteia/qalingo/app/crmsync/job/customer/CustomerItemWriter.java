@@ -24,7 +24,7 @@ import fr.hoteia.qalingo.core.domain.Customer;
  */
 public class CustomerItemWriter implements ItemWriter<Customer>, InitializingBean {
 	
-	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public final void afterPropertiesSet() throws Exception {
 	}

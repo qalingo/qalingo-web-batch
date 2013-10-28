@@ -28,7 +28,7 @@ import fr.hoteia.qalingo.core.dao.EmailDao;
  */
 public class EmailCleanerTasklet implements Tasklet, InitializingBean {
 
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected EmailDao emailDao;
 
@@ -44,7 +44,7 @@ public class EmailCleanerTasklet implements Tasklet, InitializingBean {
 		
 		calendar.set(GregorianCalendar.DAY_OF_YEAR, day - 7);
 		int row = emailDao.deleteSendedEmail(new Timestamp(calendar.getTimeInMillis()));
-		LOG.debug(row + " emails deleted");
+		logger.debug(row + " emails deleted");
 		return RepeatStatus.FINISHED;
 	}
 	

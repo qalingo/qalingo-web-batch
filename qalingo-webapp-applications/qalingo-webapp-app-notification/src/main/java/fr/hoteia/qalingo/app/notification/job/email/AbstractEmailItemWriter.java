@@ -25,7 +25,7 @@ import fr.hoteia.qalingo.core.domain.Email;
  */
 public abstract class AbstractEmailItemWriter implements ItemWriter<Email>, InitializingBean {
 	
-	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected EmailDao emailDao;
 

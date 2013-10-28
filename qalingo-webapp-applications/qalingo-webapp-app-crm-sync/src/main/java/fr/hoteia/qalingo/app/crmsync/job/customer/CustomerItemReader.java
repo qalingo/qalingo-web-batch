@@ -34,7 +34,7 @@ import fr.hoteia.qalingo.core.domain.Customer;
  */
 public class CustomerItemReader<T> implements ItemReader<CommonProcessIndicatorItemWrapper<Customer, Customer>>, StepExecutionListener, InitializingBean, DisposableBean {
 
-	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final Object lock = new Object();
 
@@ -62,7 +62,7 @@ public class CustomerItemReader<T> implements ItemReader<CommonProcessIndicatorI
 				key = keysIterator.next();
 			}
 		}
-//		LOG.debug("Retrieved key from list: " + key);
+//		logger.debug("Retrieved key from list: " + key);
 
 		if (key == null) {
 			return null;
@@ -72,7 +72,7 @@ public class CustomerItemReader<T> implements ItemReader<CommonProcessIndicatorI
 //			result = xxxxDAO.getxxxById(xxxxId);
 //	    			
 //		} catch (Exception e) {
-//			LOG.error("", e);
+//			logger.error("", e);
 //			throw new ReaderNotOpenException("Fail to load");
 //		}
 		
@@ -94,7 +94,7 @@ public class CustomerItemReader<T> implements ItemReader<CommonProcessIndicatorI
 					keys = new ArrayList<Customer>();
 				}
 				keysIterator = keys.iterator();
-//				LOG.info("Keys obtained for staging.");
+//				logger.info("Keys obtained for staging.");
 				initialized = true;
 			}
 		}
@@ -108,7 +108,7 @@ public class CustomerItemReader<T> implements ItemReader<CommonProcessIndicatorI
 //    			keys = xxxxDao.findIdsForSync();
 //	    		
 //			} catch (Exception e) {
-//				LOG.error("Error during the IDs loading", e);
+//				logger.error("Error during the IDs loading", e);
 //			} 
 			return keys;
 		}

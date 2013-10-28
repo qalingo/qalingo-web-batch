@@ -23,7 +23,7 @@ import fr.hoteia.qalingo.core.domain.ProductSkuStock;
  */
 public class StockItemProcessor<T> implements ItemProcessor<CommonProcessIndicatorItemWrapper<ProductSkuStock, ProductSkuStock>, ProductSkuStock>, InitializingBean {
 
-	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public void afterPropertiesSet() throws Exception {
 	}

@@ -7,14 +7,13 @@
  * http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
  *
  */
-package fr.hoteia.qalingo.app.notification.job.email.security;
+package fr.hoteia.qalingo.app.notification.job.email.process;
 
-import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemWriter;
+import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemProcessor;
 
 /**
  * 
  */
-public class ForgottenPasswordEmailItemWriter extends AbstractEmailItemWriter {
-	
-	
+public class EmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
+
 }

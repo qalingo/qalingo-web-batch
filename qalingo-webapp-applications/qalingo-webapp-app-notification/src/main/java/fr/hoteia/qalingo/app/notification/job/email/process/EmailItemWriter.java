@@ -7,13 +7,14 @@
  * http://www.hoteia.com - http://twitter.com/hoteia - contact@hoteia.com
  *
  */
-package fr.hoteia.qalingo.app.notification.job.email.newsletter;
+package fr.hoteia.qalingo.app.notification.job.email.process;
 
-import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemProcessor;
+import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemWriter;
 
 /**
  * 
  */
-public class NewsletterSubscriptionEmailItemProcessor<T> extends AbstractEmailItemProcessor<T> {
-
+public class EmailItemWriter extends AbstractEmailItemWriter {
+	
+	
 }

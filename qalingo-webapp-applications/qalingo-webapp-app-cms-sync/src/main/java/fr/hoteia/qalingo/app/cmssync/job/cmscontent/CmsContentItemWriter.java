@@ -24,7 +24,7 @@ import fr.hoteia.qalingo.core.domain.CmsContent;
  */
 public class CmsContentItemWriter implements ItemWriter<CmsContent>, InitializingBean {
 	
-	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public final void afterPropertiesSet() throws Exception {
 	}
