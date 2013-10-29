@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemReader;
 
 import fr.hoteia.qalingo.app.notification.job.email.AbstractEmailItemReader;
-import fr.hoteia.qalingo.core.domain.Email;
 
 /**
  * Thread-safe database {@link ItemReader} implementing the process indicator
@@ -32,7 +31,7 @@ public class EmailItemReader<T> extends AbstractEmailItemReader<T> {
 		synchronized (lock) {
 			List<Long> keys = null;
 	    	try {
-    			keys = emailDao.findIdsForEmailSync(Email.EMAIl_TYPE_CONTACT);
+    			keys = emailDao.findIdsForEmailSync();
 			} catch (Exception e) {
 				logger.error("Error during the IDs loading", e);
 			} 
