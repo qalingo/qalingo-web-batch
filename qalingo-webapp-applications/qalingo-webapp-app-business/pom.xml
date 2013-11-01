@@ -6,10 +6,10 @@
 		<artifactId>qalingo-webapp-applications</artifactId>
 		<version>0.7.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>qalingo-webapp-application-notification</artifactId>
+	<artifactId>qalingo-webapp-application-business</artifactId>
 	<packaging>war</packaging>
-	<name>{Q} Commerce Solution App notification webapp</name>
-	<description>{Q} Commerce Solution application notification webapp</description>
+	<name>{Q} Commerce Solution App business webapp</name>
+	<description>{Q} Commerce Solution application business webapp</description>
 	<url>http://www.hoteia.com</url>
 	<organization>
 		<name>Hoteia</name>
@@ -18,17 +18,16 @@
 	
 	<properties>
 		<root.basedir>${project.parent.parent.basedir}</root.basedir> 
-		<batch.email.notification.cron>0 45 7 * * ?</batch.email.notification.cron>
         <batch.email.notification.commit.interval>200</batch.email.notification.commit.interval>
 		
 		<deploy.server.id>tomcatQalingo</deploy.server.id>
 		<deploy.server.ip>localhost</deploy.server.ip>
 		<deploy.webapp.port>13080</deploy.webapp.port>
-		<deploy.webapp.path>/app-notification</deploy.webapp.path>
+		<deploy.webapp.path>/app-business</deploy.webapp.path>
 	</properties>
 
 	<build>
-		<finalName>app-notification</finalName>
+		<finalName>app-business</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

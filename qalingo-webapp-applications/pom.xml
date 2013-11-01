@@ -19,7 +19,7 @@
 		<module>qalingo-webapp-app-cms-sync</module>
 		<module>qalingo-webapp-app-crm-sync</module>
 		<module>qalingo-webapp-app-erp-sync</module>
-		<module>qalingo-webapp-app-notification</module>
+		<module>qalingo-webapp-app-business</module>
 	</modules>
 
 	<properties>
