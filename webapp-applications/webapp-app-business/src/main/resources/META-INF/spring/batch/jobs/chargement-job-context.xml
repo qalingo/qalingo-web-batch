@@ -110,7 +110,7 @@
 			<listener ref="stepListener"/>
 		</listeners>
 	</job>
-	
+
 	<bean id="emailCleanerTasklet" class="org.hoteia.qalingo.app.business.job.email.EmailCleanerTasklet">
 		<property name="emailDao" ref="emailDao" />
 	</bean>
