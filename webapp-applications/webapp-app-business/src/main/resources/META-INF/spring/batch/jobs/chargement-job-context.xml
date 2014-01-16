@@ -64,6 +64,16 @@
 		<jms:listener destination="${email.notification.trigger.queue.name}" ref="emailNotificationMessageListener"></jms:listener>
 	</jms:listener-container>
 	
+	<!-- JMS : LISTEN ALL ACTIONS DOCUMENT -->
+	<context:component-scan base-package="org.hoteia.qalingo.core.jms.document.listener" />
+	<jms:listener-container 
+		container-type="default"
+		concurrency="1-5" 
+		connection-factory="connectionFactory" 
+		acknowledge="transacted">
+		<jms:listener destination="${document.trigger.queue.name}" ref="documentQueueListener"></jms:listener>
+	</jms:listener-container>
+	
 	<!-- JMS : LISTEN ALL ACTIONS FOR SEARCH INDEX -->
 	<context:component-scan base-package="org.hoteia.qalingo.core.jms.searchindex.listener" />
 	<jms:listener-container 
