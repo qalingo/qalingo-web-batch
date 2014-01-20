@@ -81,12 +81,17 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>qalingo-i18n-properties</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>qalingo-api-core-batch</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>qalingo-api-core-jms</artifactId>
 		</dependency>
+
 
 		<!-- Commons libs-->
 		<dependency>
