@@ -91,7 +91,10 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>qalingo-api-core-jms</artifactId>
 		</dependency>
-
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>qalingo-api-core-security</artifactId>
+        </dependency>
 
 		<!-- Commons libs-->
 		<dependency>

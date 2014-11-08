@@ -11,23 +11,27 @@
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:jms="http://www.springframework.org/schema/jms"	
-	xsi:schemaLocation="http://www.springframework.org/schema/batch 
-						http://www.springframework.org/schema/batch/spring-batch.xsd
-						http://www.springframework.org/schema/beans 
-						http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/context 
-						http://www.springframework.org/schema/context/spring-context.xsd
-						http://www.springframework.org/schema/aop 
-						http://www.springframework.org/schema/aop/spring-aop.xsd
-						http://www.springframework.org/schema/jms 
-						http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:jms="http://www.springframework.org/schema/jms"   
+    xsi:schemaLocation="http://www.springframework.org/schema/batch 
+                        http://www.springframework.org/schema/batch/spring-batch.xsd
+                        http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context 
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/jms 
+                        http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
 
-	<!-- Configures core context -->
-	<import resource="classpath*:qalingo-batch-common-context.xml" />
+    <!-- Configures core context -->
+    <import resource="classpath*:qalingo-batch-common-context.xml" />
+
+    <context:component-scan base-package="org.hoteia.qalingo.core.security.helper" />
+    
+    <bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"></bean>
 
 	<import resource="classpath:messages-config.xml" />
 	
@@ -50,6 +54,7 @@
                 <ref bean="syncServeurStatusCronTrigger" />
                 <ref bean="emailCleanerCronTrigger" />
                 <ref bean="serverStatusCleanerCronTrigger" />
+                <ref bean="retailerImportCronTrigger" />
 			</list>
 		</property>
 	</bean>
@@ -156,6 +161,42 @@
         <property name="serverDao" ref="serverDao" />
     </bean>
 
+    <!-- RETAILER IMPORT -->
+    <bean id="retailerImportCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="retailerImportJobDetail" />
+        <property name="cronExpression" value="${batch.import.retailer.cron}" />
+    </bean>
+    
+    <bean id="retailerImportJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="org.hoteia.qalingo.core.batch.JobLauncherDetails" />
+        <property name="group" value="quartz-batch" />
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="jobName" value="jobRetailerImport" />
+                <entry key="jobLocator" value-ref="jobRegistry" />
+                <entry key="jobLauncher" value-ref="jobLauncher" />
+            </map>
+        </property>
+    </bean>
+    
+    <job id="jobRetailerImport" restartable="true" xmlns="http://www.springframework.org/schema/batch">
+        <step id="stepRetailerImport">
+            <tasklet ref="retailerImportTasklet" />
+        </step>
+        <listeners>
+            <listener ref="stepListener"/>
+        </listeners>
+    </job>
+    
+    <bean id="retailerImportTasklet" class="org.hoteia.qalingo.app.business.job.retailer.RetailerImportTasklet">
+        <property name="userDao"       ref="userDao" />
+        <property name="retailerDao"   ref="retailerDao" />
+        <property name="warehouseDao"  ref="warehouseDao" />
+        <property name="marketService" ref="marketService" />
+        <property name="localizationService"  ref="localizationService" />
+        <property name="securityUtil"  ref="securityUtil" />
+    </bean>
+    
 	<!-- EMAIL NOTIFICATION SYNC -->
 	<job id="emailSyncJob" xmlns="http://www.springframework.org/schema/batch">
 		<step id="emailSyncStep">
@@ -184,5 +225,35 @@
 		<property name="emailDao" ref="emailDao" />
 	</bean>
 
+    <!-- GEOLOC ADDRESS -->
+    <bean id="geolocAddressCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="geolocAddressJobDetail" />
+        <property name="cronExpression" value="${batch.email.cleaner.cron}" />
+    </bean>
+    
+    <bean id="geolocAddressJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="org.hoteia.qalingo.core.batch.JobLauncherDetails" />
+        <property name="group" value="quartz-batch" />
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="jobName" value="jobGeolocAddress" />
+                <entry key="jobLocator" value-ref="jobRegistry" />
+                <entry key="jobLauncher" value-ref="jobLauncher" />
+            </map>
+        </property>
+    </bean>
+    
+    <job id="jobGeolocAddress" restartable="true" xmlns="http://www.springframework.org/schema/batch">
+        <step id="stepGeolocAddress">
+            <tasklet ref="geolocAddressTasklet" />
+        </step>
+        <listeners>
+            <listener ref="stepListener"/>
+        </listeners>
+    </job>
 
+    <bean id="geolocAddressTasklet" class="org.hoteia.qalingo.app.business.job.geoloc.GeolocAddressTasklet">
+        <property name="geolocDao" ref="geolocDao" />
+    </bean>
+    
 </beans>
