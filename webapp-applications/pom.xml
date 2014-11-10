@@ -16,9 +16,7 @@
 	</organization>
 
 	<modules>
-		<module>webapp-app-cms-sync</module>
-		<module>webapp-app-crm-sync</module>
-		<module>webapp-app-erp-sync</module>
+
 		<module>webapp-app-business</module>
 	</modules>
 

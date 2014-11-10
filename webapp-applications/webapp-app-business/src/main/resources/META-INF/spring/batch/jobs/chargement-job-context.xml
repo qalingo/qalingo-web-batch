@@ -99,6 +99,16 @@
 		<jms:listener destination="${entity.audit.trigger.queue.name}" ref="entityAuditQueueListener"></jms:listener>
 	</jms:listener-container>
 
+    <!-- JMS : LISTEN ALL ACTIONS FOR GEOLOC ENTITY -->
+    <context:component-scan base-package="org.hoteia.qalingo.core.jms.geoloc.listener" />
+    <jms:listener-container 
+        container-type="default"
+        concurrency="1-5" 
+        connection-factory="connectionFactory" 
+        acknowledge="transacted">
+        <jms:listener destination="${geoloc.trigger.queue.name}" ref="addressGeolocQueueListener"></jms:listener>
+    </jms:listener-container>
+    
 	<!-- EMAIL CLEANER -->
 	<bean id="emailCleanerCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="emailCleanerJobDetail" />
@@ -189,9 +199,9 @@
     </job>
     
     <bean id="retailerImportTasklet" class="org.hoteia.qalingo.app.business.job.retailer.RetailerImportTasklet">
-        <property name="userDao"       ref="userDao" />
-        <property name="retailerDao"   ref="retailerDao" />
-        <property name="warehouseDao"  ref="warehouseDao" />
+        <property name="userService"       ref="userService" />
+        <property name="retailerService"   ref="retailerService" />
+        <property name="warehouseService"  ref="warehouseService" />
         <property name="marketService" ref="marketService" />
         <property name="localizationService"  ref="localizationService" />
         <property name="securityUtil"  ref="securityUtil" />
@@ -225,7 +235,7 @@
 		<property name="emailDao" ref="emailDao" />
 	</bean>
 
-    <!-- GEOLOC ADDRESS -->
+    <!-- GEOLOC ADDRESS >
     <bean id="geolocAddressCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="geolocAddressJobDetail" />
         <property name="cronExpression" value="${batch.email.cleaner.cron}" />
@@ -255,5 +265,16 @@
     <bean id="geolocAddressTasklet" class="org.hoteia.qalingo.app.business.job.geoloc.GeolocAddressTasklet">
         <property name="geolocDao" ref="geolocDao" />
     </bean>
+    -->
+    
+    <!-- AOP -->
+    <context:component-scan base-package="org.hoteia.qalingo.core.jms.geoloc.producer" />
+    <context:component-scan base-package="org.hoteia.qalingo.core.aop.geoloc" />
+    <aop:config>
+        <aop:aspect id="triggerGeoloc" ref="geolocAspect">
+            <aop:pointcut id="geolocBusinessService" expression="execution(* org.hoteia.qalingo.core.service.RetailerService.saveOrUpdateStore*(..))" />
+            <aop:after-returning method="afterReturning" pointcut-ref="geolocBusinessService" returning="result" />
+        </aop:aspect>
+    </aop:config>
     
 </beans>
