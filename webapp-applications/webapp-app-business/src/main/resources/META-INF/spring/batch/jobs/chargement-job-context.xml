@@ -28,7 +28,8 @@
 
     <!-- Configures core context -->
     <import resource="classpath*:qalingo-batch-common-context.xml" />
-
+	<import resource="classpath:conf/spring/qalingo-core-solr.xml" />
+	
     <context:component-scan base-package="org.hoteia.qalingo.core.security.helper" />
     
     <bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"></bean>
@@ -107,6 +108,16 @@
         connection-factory="connectionFactory" 
         acknowledge="transacted">
         <jms:listener destination="${geoloc.trigger.queue.name}" ref="addressGeolocQueueListener"></jms:listener>
+    </jms:listener-container>
+    
+    <!-- JMS : LISTEN ALL ACTIONS FOR INDEXING ENTITY IN SEARCH SERVER -->
+    <context:component-scan base-package="org.hoteia.qalingo.core.jms.indexing.listener" />
+    <jms:listener-container 
+        container-type="default"
+        concurrency="1-5" 
+        connection-factory="connectionFactory" 
+        acknowledge="transacted">
+        <jms:listener destination="${indexing.object.trigger.queue.name}" ref="indexingObjectQueueListener"></jms:listener>
     </jms:listener-container>
     
 	<!-- EMAIL CLEANER -->
