@@ -80,16 +80,6 @@
 		<jms:listener destination="${document.trigger.queue.name}" ref="documentQueueListener"></jms:listener>
 	</jms:listener-container>
 	
-	<!-- JMS : LISTEN ALL ACTIONS FOR SEARCH INDEX -->
-	<context:component-scan base-package="org.hoteia.qalingo.core.jms.searchindex.listener" />
-	<jms:listener-container 
-		container-type="default"
-		concurrency="1-5" 
-		connection-factory="connectionFactory" 
-		acknowledge="transacted">
-		<jms:listener destination="${search.index.trigger.queue.name}" ref="searchIndexTriggerQueueListener"></jms:listener>
-	</jms:listener-container>
-	
 	<!-- JMS : LISTEN ALL ACTIONS FOR ENTITY AUDIT -->
 	<context:component-scan base-package="org.hoteia.qalingo.core.jms.entityaudit.listener" />
 	<jms:listener-container 
