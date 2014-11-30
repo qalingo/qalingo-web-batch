@@ -55,7 +55,6 @@
                 <ref bean="syncServeurStatusCronTrigger" />
                 <ref bean="emailCleanerCronTrigger" />
                 <ref bean="serverStatusCleanerCronTrigger" />
-                <ref bean="retailerImportCronTrigger" />
 			</list>
 		</property>
 	</bean>
@@ -170,42 +169,6 @@
     
     <bean id="serverStatusCleanerTasklet" class="org.hoteia.qalingo.app.business.job.status.ServerStatusCleanerTasklet">
         <property name="serverDao" ref="serverDao" />
-    </bean>
-
-    <!-- RETAILER IMPORT -->
-    <bean id="retailerImportCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="retailerImportJobDetail" />
-        <property name="cronExpression" value="${batch.import.retailer.cron}" />
-    </bean>
-    
-    <bean id="retailerImportJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
-        <property name="jobClass" value="org.hoteia.qalingo.core.batch.JobLauncherDetails" />
-        <property name="group" value="quartz-batch" />
-        <property name="jobDataAsMap">
-            <map>
-                <entry key="jobName" value="jobRetailerImport" />
-                <entry key="jobLocator" value-ref="jobRegistry" />
-                <entry key="jobLauncher" value-ref="jobLauncher" />
-            </map>
-        </property>
-    </bean>
-    
-    <job id="jobRetailerImport" restartable="true" xmlns="http://www.springframework.org/schema/batch">
-        <step id="stepRetailerImport">
-            <tasklet ref="retailerImportTasklet" />
-        </step>
-        <listeners>
-            <listener ref="stepListener"/>
-        </listeners>
-    </job>
-    
-    <bean id="retailerImportTasklet" class="org.hoteia.qalingo.app.business.job.retailer.RetailerImportTasklet">
-        <property name="userService"       ref="userService" />
-        <property name="retailerService"   ref="retailerService" />
-        <property name="warehouseService"  ref="warehouseService" />
-        <property name="marketService" ref="marketService" />
-        <property name="localizationService"  ref="localizationService" />
-        <property name="securityUtil"  ref="securityUtil" />
     </bean>
     
 	<!-- EMAIL NOTIFICATION SYNC -->
