@@ -31,7 +31,7 @@ public class EmailItemReader<T> extends AbstractEmailItemReader<T> {
 		synchronized (lock) {
 			List<Long> keys = null;
 	    	try {
-    			keys = emailDao.findIdsForEmailSync();
+    			keys = emailService.findIdsForEmailSync();
 			} catch (Exception e) {
 				logger.error("Error during the IDs loading", e);
 			} 

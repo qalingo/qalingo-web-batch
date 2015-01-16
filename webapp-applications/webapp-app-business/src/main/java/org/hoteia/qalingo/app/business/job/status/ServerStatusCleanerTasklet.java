@@ -12,7 +12,7 @@ package org.hoteia.qalingo.app.business.job.status;
 import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
-import org.hoteia.qalingo.core.dao.ServerDao;
+import org.hoteia.qalingo.core.service.ServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
@@ -29,10 +29,10 @@ public class ServerStatusCleanerTasklet implements Tasklet, InitializingBean {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	protected ServerDao serverDao;
+	protected ServerService serverService;
 
 	public final void afterPropertiesSet() throws Exception {
-		Assert.notNull(serverDao, "You must provide an ServerDao.");
+		Assert.notNull(serverService, "You must provide an ServerService.");
 	}
 
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
@@ -42,13 +42,13 @@ public class ServerStatusCleanerTasklet implements Tasklet, InitializingBean {
 		// TODO : Denis : 20131209 : add number of day configuration in database ?
 		
 		calendar.set(GregorianCalendar.DAY_OF_YEAR, day - 7);
-		int row = serverDao.deleteSendedServerStatus(new Timestamp(calendar.getTimeInMillis()));
+		int row = serverService.deleteSendedServerStatus(new Timestamp(calendar.getTimeInMillis()));
 		logger.debug(row + " server status deleted");
 		return RepeatStatus.FINISHED;
 	}
 	
-	public void setServerDao(ServerDao serverDao) {
-        this.serverDao = serverDao;
+	public void setServerService(ServerService serverService) {
+        this.serverService = serverService;
     }
 
 }

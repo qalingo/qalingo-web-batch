@@ -11,14 +11,13 @@ package org.hoteia.qalingo.app.business.job.email;
 
 import java.util.List;
 
+import org.hoteia.qalingo.core.domain.Email;
+import org.hoteia.qalingo.core.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
-
-import org.hoteia.qalingo.core.dao.EmailDao;
-import org.hoteia.qalingo.core.domain.Email;
 
 /**
  * 
@@ -27,22 +26,22 @@ public abstract class AbstractEmailItemWriter implements ItemWriter<Email>, Init
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	protected EmailDao emailDao;
+	protected EmailService emailService;
 
 	public final void afterPropertiesSet() throws Exception {
-		Assert.notNull(emailDao, "You must provide an EmailDao.");
+		Assert.notNull(emailService, "You must provide an EmailService.");
 	}
 	
 	public void write(List<? extends Email> processIndicatorItemWrapperList) throws Exception {
 		for (Email email : processIndicatorItemWrapperList) {
 			int processedCount = email.getProcessedCount();
 			email.setProcessedCount(++processedCount);
-			emailDao.saveOrUpdateEmail(email);
+			emailService.saveOrUpdateEmail(email);
 		}
 	}
 	
-	public void setEmailDao(EmailDao emailDao) {
-	    this.emailDao = emailDao;
+	public void setEmailService(EmailService emailService) {
+	    this.emailService = emailService;
     }
 
 }

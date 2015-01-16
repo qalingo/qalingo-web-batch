@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hoteia.qalingo.core.batch.CommonProcessIndicatorItemWrapper;
+import org.hoteia.qalingo.core.domain.Email;
+import org.hoteia.qalingo.core.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.ExitStatus;
@@ -24,10 +27,6 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.util.Assert;
-
-import org.hoteia.qalingo.core.batch.CommonProcessIndicatorItemWrapper;
-import org.hoteia.qalingo.core.dao.EmailDao;
-import org.hoteia.qalingo.core.domain.Email;
 
 /**
  * Thread-safe database {@link ItemReader} implementing the process indicator
@@ -44,7 +43,7 @@ public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonPro
 
 	protected volatile Iterator<Long> keysIterator;
 
-	protected EmailDao emailDao;
+	protected EmailService emailService;
 	
 	public void destroy() {
 		initialized = false;
@@ -52,7 +51,7 @@ public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonPro
 	}
 
 	public final void afterPropertiesSet() throws Exception {
-		Assert.notNull(emailDao, "You must provide an EmailDao.");
+		Assert.notNull(emailService, "You must provide an EmailService.");
 	}
 	
 	public CommonProcessIndicatorItemWrapper<Long, Email> read() throws DataAccessException {
@@ -74,7 +73,7 @@ public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonPro
 		}
 		Email result = null;
 		try {
-			result = emailDao.getEmailById(key);
+			result = emailService.getEmailById(key);
 			
 		} catch (Exception e) {
 			logger.error("Fail to load", e);
@@ -107,8 +106,8 @@ public abstract class AbstractEmailItemReader<T> implements ItemReader<CommonPro
 
 	abstract protected List<Long> retrieveKeys() ;
 	
-	public void setEmailDao(EmailDao emailDao) {
-	    this.emailDao = emailDao;
+	public void setEmailService(EmailService emailService) {
+	    this.emailService = emailService;
     }
 
 }

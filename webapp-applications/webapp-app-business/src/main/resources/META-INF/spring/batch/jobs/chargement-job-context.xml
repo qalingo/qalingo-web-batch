@@ -137,7 +137,7 @@
 	</job>
 
 	<bean id="emailCleanerTasklet" class="org.hoteia.qalingo.app.business.job.email.EmailCleanerTasklet">
-		<property name="emailDao" ref="emailDao" />
+		<property name="emailService" ref="emailService" />
 	</bean>
 	
     <!-- SERVER STATUS CLEANER -->
@@ -168,7 +168,7 @@
     </job>
     
     <bean id="serverStatusCleanerTasklet" class="org.hoteia.qalingo.app.business.job.status.ServerStatusCleanerTasklet">
-        <property name="serverDao" ref="serverDao" />
+        <property name="serverService" ref="serverService" />
     </bean>
     
 	<!-- EMAIL NOTIFICATION SYNC -->
@@ -187,16 +187,16 @@
 	</job>
 	
 	<bean id="emailSyncItemReader" class="org.hoteia.qalingo.app.business.job.email.process.EmailItemReader">
-		<property name="emailDao" ref="emailDao" />
+		<property name="emailService" ref="emailService" />
 	</bean>
 	
 	<bean id="emailSyncItemProcessor" class="org.hoteia.qalingo.app.business.job.email.process.EmailItemProcessor">
 		<property name="mailSender" ref="mailSender" />
-		<property name="emailDao" ref="emailDao" />
+		<property name="emailService" ref="emailService" />
 	</bean>
 	
 	<bean id="emailSyncItemWriter" class="org.hoteia.qalingo.app.business.job.email.process.EmailItemWriter">
-		<property name="emailDao" ref="emailDao" />
+		<property name="emailService" ref="emailService" />
 	</bean>
 
     <!-- GEOLOC ADDRESS >
@@ -227,7 +227,7 @@
     </job>
 
     <bean id="geolocAddressTasklet" class="org.hoteia.qalingo.app.business.job.geoloc.GeolocAddressTasklet">
-        <property name="geolocDao" ref="geolocDao" />
+        <property name="geolocService" ref="geolocService" />
     </bean>
     -->
     

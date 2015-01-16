@@ -20,18 +20,17 @@ import java.io.Writer;
 import java.sql.Blob;
 
 import org.apache.commons.lang.StringUtils;
+import org.hoteia.qalingo.core.Constants;
+import org.hoteia.qalingo.core.batch.CommonProcessIndicatorItemWrapper;
+import org.hoteia.qalingo.core.domain.Email;
+import org.hoteia.qalingo.core.service.EmailService;
+import org.hoteia.qalingo.core.util.impl.MimeMessagePreparatorImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.Assert;
-
-import org.hoteia.qalingo.core.Constants;
-import org.hoteia.qalingo.core.batch.CommonProcessIndicatorItemWrapper;
-import org.hoteia.qalingo.core.dao.EmailDao;
-import org.hoteia.qalingo.core.domain.Email;
-import org.hoteia.qalingo.core.util.impl.MimeMessagePreparatorImpl;
 
 
 /**
@@ -43,11 +42,11 @@ public abstract class AbstractEmailItemProcessor<T> implements ItemProcessor<Com
 
 	private JavaMailSender mailSender;
 	
-	protected EmailDao emailDao;
+	protected EmailService emailService;
 
 	public final void afterPropertiesSet() throws Exception {
 		Assert.notNull(mailSender, "You must provide a JavaMailSender.");
-		Assert.notNull(emailDao, "You must provide an EmailDao.");
+		Assert.notNull(emailService, "You must provide an EmailService.");
 	}
 
 	public Email process(CommonProcessIndicatorItemWrapper<Long, Email> wrapper) throws Exception {
@@ -109,7 +108,7 @@ public abstract class AbstractEmailItemProcessor<T> implements ItemProcessor<Com
         } catch (Exception e) {
         	logger.error("Fail to send email! Exception is save in database, id:" + email.getId());
     		email.setStatus(Email.EMAIl_STATUS_ERROR);
-    		emailDao.handleEmailException(email, e);
+    		emailService.handleEmailException(email, e);
         }
 
 	    return email;
@@ -119,8 +118,8 @@ public abstract class AbstractEmailItemProcessor<T> implements ItemProcessor<Com
 	    this.mailSender = mailSender;
     }
 
-	public void setEmailDao(EmailDao emailDao) {
-	    this.emailDao = emailDao;
+	public void setEmailService(EmailService emailService) {
+	    this.emailService = emailService;
     }
 	
 }

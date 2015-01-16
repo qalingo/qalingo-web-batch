@@ -12,6 +12,7 @@ package org.hoteia.qalingo.app.business.job.email;
 import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
+import org.hoteia.qalingo.core.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
@@ -21,8 +22,6 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
-import org.hoteia.qalingo.core.dao.EmailDao;
-
 /**
  * 
  */
@@ -30,10 +29,10 @@ public class EmailCleanerTasklet implements Tasklet, InitializingBean {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	protected EmailDao emailDao;
+	protected EmailService emailService;
 
 	public final void afterPropertiesSet() throws Exception {
-		Assert.notNull(emailDao, "You must provide an EmailDao.");
+		Assert.notNull(emailService, "You must provide an EmailService.");
 	}
 
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
@@ -43,13 +42,13 @@ public class EmailCleanerTasklet implements Tasklet, InitializingBean {
 		// TODO : Denis : 20130924 : add number of day configuration in database
 		
 		calendar.set(GregorianCalendar.DAY_OF_YEAR, day - 7);
-		int row = emailDao.deleteSendedEmail(new Timestamp(calendar.getTimeInMillis()));
+		int row = emailService.deleteSendedEmail(new Timestamp(calendar.getTimeInMillis()));
 		logger.debug(row + " emails deleted");
 		return RepeatStatus.FINISHED;
 	}
 	
-	public void setEmailDao(EmailDao emailDao) {
-	    this.emailDao = emailDao;
+	public void setEmailService(EmailService emailService) {
+	    this.emailService = emailService;
     }
 
 }
