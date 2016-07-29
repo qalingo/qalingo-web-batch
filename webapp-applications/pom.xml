@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.hoteia.qalingo</groupId>
 		<artifactId>qalingo-web-batch</artifactId>
-		<version>0.8.1-SNAPSHOT</version>
+		<version>0.9.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>qalingo-webapp-applications</artifactId>
 	<packaging>pom</packaging>
@@ -16,8 +16,10 @@
 	</organization>
 
 	<modules>
-
 		<module>webapp-app-business</module>
+		<module>webapp-app-cms-sync</module>
+		<module>webapp-app-crm-sync</module>
+		<module>webapp-app-erp-sync</module>
 	</modules>
 
 	<properties>

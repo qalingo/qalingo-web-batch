@@ -13,13 +13,6 @@
 		<name>Hoteia</name>
 		<url>http://www.hoteia.com</url>
 	</organization>
-
-	<scm>
-		<connection>scm:git:git@github.com:qalingo/qalingo-web-batch.git</connection>
-		<developerConnection>scm:git:git@github.com:qalingo/qalingo-web-batch.git</developerConnection>
-		<url>scm:git:git@github.com:qalingo/qalingo-web-batch.git</url>
-		<tag>HEAD</tag>
-	</scm>
 	
 	<properties>
 		<root.basedir>${project.basedir}</root.basedir> 
@@ -674,6 +667,13 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	
+	<scm>
+		<connection>scm:git:git@github.com:qalingo/qalingo-web-batch.git</connection>
+		<developerConnection>scm:git:git@github.com:qalingo/qalingo-web-batch.git</developerConnection>
+		<url>scm:git:git@github.com:qalingo/qalingo-web-batch.git</url>
+		<tag>HEAD</tag>
+	</scm>
 	
 	<distributionManagement>
 		<repository>
