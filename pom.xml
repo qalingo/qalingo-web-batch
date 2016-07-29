@@ -502,6 +502,18 @@
 	<build>
 		<plugins>
 			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.2</version>
+				<dependencies>
+					<!-- This dependency to fix the issue with jenkisn/maven-release/version not changed in the pom.xml-->
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>1.8.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.0</version>
@@ -653,10 +665,12 @@
 					<artifactId>maven-license-plugin</artifactId>
 					<version>1.9.0</version>
 				</plugin>
+				<!--
 				<plugin>
 					<artifactId>maven-release-plugin</artifactId>
 					<version>2.3.2</version>
 				</plugin>
+				-->
 			</plugins>
 		</pluginManagement>
 	</build>
