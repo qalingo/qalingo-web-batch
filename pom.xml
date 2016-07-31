@@ -16,7 +16,7 @@
 	
 	<properties>
 		<root.basedir>${project.basedir}</root.basedir> 
-		<qalingo.engine.version>0.9.0</qalingo.engine.version> 
+		<qalingo.engine.version>0.9.1-SNAPSHOT</qalingo.engine.version> 
 		<packaging.excludes>WEB-INF/classes/*.properties, %regex[WEB-INF/classes/*.properties]</packaging.excludes>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<solr.server.url>http://localhost:14080/solr</solr.server.url>
